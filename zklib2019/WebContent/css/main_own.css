@@ -1,0 +1,58 @@
+.table th {
+	text-align: center;
+	height: 38px;
+}
+
+.cla1 {
+	FONT-SIZE: 12px;
+	COLOR: #4b4b4b;
+	LINE-HEIGHT: 18px;
+	TEXT-DECORATION: none
+}
+
+.login_msg {
+	font-family: serif;
+}
+
+.login_msg .msg {
+	background-color: #acf;
+	width: 150px;
+}
+
+.login_msg .btn {
+	background-color: #9be;
+	width: 150px;
+	font-size: 15px;
+	font-family: ΢���ź�;
+}
+
+fieldset {
+	width: 380px;
+	height: 180px;
+	margin: 18% auto;
+}
+
+fieldset form {
+	
+}
+
+.page_center {
+	margin: 0 auto;
+}
+
+.side_a_center {
+	text-align: left;
+}
+
+.own_side {
+	width: 140px;
+}
+
+li.l {
+	margin-right: 2px;
+}
+
+div#pagetable {
+	margin: 0 auto;
+	text-align: center;
+}

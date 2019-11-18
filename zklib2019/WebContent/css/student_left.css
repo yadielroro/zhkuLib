@@ -1,0 +1,31 @@
+#left {
+	width: 135px;
+	font-family: Arial;
+}
+
+#left ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#left li {
+	border-bottom: 1px solid #efefef;
+}
+
+#left li a {
+	display: block;
+	padding: 6px 20px 12px 6px;
+	border-left: 8px solid #c61c35;
+	text-decoration: none;
+}
+
+#left li a:link, #left li a:visited {
+	background-color: #8f2e9f;
+	color: white;
+}
+
+#left li a:hover {
+	background-color: #c55666;
+	color: white;
+}

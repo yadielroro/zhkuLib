@@ -1,0 +1,129 @@
+/*校道图片*/
+#table {
+	width: 100%;
+	height: 370px;
+	position: absolute;
+	z-index: -1;
+}
+
+.first {
+	height: 370px;
+}
+/*选项卡*/
+#Tab {
+	width: 460px;
+	height: 210px;
+	margin: 60px auto;
+	border-radius: 5%;
+	padding: 18px;
+	background-color: rgba(0, 0, 0, 0.18);
+}
+/*在section和选项卡之间塞一个空的盒子*/
+.first:before, .first:after {
+	display: table;
+	content: '';
+	clear: both;
+}
+/*菜单class*/
+.Menubox {
+	width: 100%;
+	height: 28px;
+	line-height: 28px;
+}
+
+.Menubox ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+.Menubox li {
+	float: left;
+	display: block;
+	cursor: pointer;
+	width: 229px;
+	text-align: center;
+	background-color: #bb0050;
+	color: white;
+	font-weight: bold;
+}
+
+.Menubox li.hover {
+	padding: 0px;
+	background: #fff;
+	width: 229px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	color: #950040;
+	font-weight: bold;
+	height: 27px;
+	line-height: 27px;
+	background: transparent;
+	/*背景透明*/
+}
+
+.Contentbox {
+	clear: both;
+	color: white;
+	margin-top: 0px;
+	border: 1px solid #fff;
+	border-top: none;
+	height: 180px;
+	text-align: center;
+	padding-top: 18px;
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	/*边框半透明*/
+	/*box-shadow: inset 0 0 4px rgba(255, 255, 255, 100), 0 0 4px rgba(255, 255, 255, 100);*/
+	/*内外渐变阴影*/
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 输入框前文字样式 */
+.STYLE2 {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* 输入框样式 */
+.info {
+	height: 25px;
+	border: solid 1px #ddd;
+	border-radius: 5px;
+	margin: 5px auto;
+}
+
+.info:focus {
+	border: solid 2px #5382ec;
+}
+
+/* 单选按钮 */
+.radioi {
+	margin:1px 25px;
+}
+
+/* 放大镜搜索按钮 */
+.ci {
+	margin-left: 5px;
+	width: 33px;
+	height: 33px;
+	line-height: 33px;
+}
+
+/* 登录按钮 */
+.btn {
+	margin: 2px auto;
+	padding: 3px;
+	width: 60px;
+	height: 28px;
+	border: none;
+	border-radius: 5px;
+	background-color: #edf0ff;
+	color: #bb0050;
+}
+
+/* 忘记密码、校外注册 */
+#con_one_4 .word {
+	font-size: 13px;
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: underline;
+	padding: 2px 25px;
+}

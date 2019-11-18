@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.SourceDao">
+	<select id="getSourceById" parameterType="String" resultType="Source">
+		select * from source where souid = #{souid}
+	</select>
+
+	<!-- 根据souid查询是否存在该id -->
+	<select id="isExistId" resultType="Source">
+		select *
+		from source where
+		souid
+		= #{souid}
+	</select>
+
+	<!-- 查询所有资源 -->
+	<select id="findAllSource" resultType="Source">
+		select *
+		from source
+		<!-- 执行分页查询 -->
+		<if test="start !=null and rows != null">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+	<!-- 查询资源总数 -->
+	<select id="sourceCount" resultType="Integer">
+		select count(*) from
+		source
+	</select>
+
+	<!-- 查询相同id号的资源总数 -->
+	<select id="sourceCountSameId" parameterType="String"
+		resultType="Integer">
+		select count(*) from source where souid = #{souid}
+	</select>
+
+	<!-- 添加资源 -->
+	<insert id="addSource" parameterType="pojo.Source">
+		insert into source (souid,
+		mid, ssum, saddress, sformat)
+		values
+		(#{souid}, #{mid}, #{ssum},
+		#{saddress}, #{sformat})
+	</insert>
+
+	<!-- 根据souid更新资源，只能修改密码 -->
+	<update id="updateSource" parameterType="String">
+		update
+		source
+		set
+		ssum=#{ssum}, saddress=#{saddress}, sformat=#{sformat}
+		where souid =
+		#{souid}
+	</update>
+
+	<!-- 根据souid删除资源 -->
+	<delete id="deleteSource" parameterType="String">
+		delete from source
+		where
+		souid = #{souid}
+	</delete>
+
+	<select id="findSourceByWord" resultType="pojo.Source">
+		select *
+		from source
+		where
+		ssum like concat('%', #{word}, '%')
+		limit #{start},#{size}
+	</select>
+
+	<!-- 查询相同word的资源总数 -->
+	<select id="sourceCountSameWord" parameterType="String"
+		resultType="Integer">
+		select count(*) from source where ssum like concat('%',
+		#{word}, '%')
+	</select>
+</mapper>

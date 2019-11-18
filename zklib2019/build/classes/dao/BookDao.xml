@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="dao.BookDao">
+
+	<sql id="Base_Column_List">
+		bid, bname, author, publishment, isbn, buytime, price,
+		status
+	</sql>
+
+	<!--根据书名或作者或出版社或isbn查找一本图书 -->
+	<select id="selectByAny" parameterType="String" resultType="pojo.Book">
+		select
+		<include refid="Base_Column_List" />
+		from book
+		where bname like concat('%', #{word}, '%') or author like
+		concat('%',#{word},'%') or isbn like
+		concat('%',#{word},'%') or
+		publishment like
+		concat('%',#{word},'%')
+	</select>
+
+	<!--根据书名查找一本图书 -->
+	<select id="selectByName" parameterType="String" resultType="String">
+		select
+		bname
+		from book
+		where bname like concat('%', #{word}, '%')
+	</select>
+
+	<!--查询所有图书 -->
+	<select id="selectBookList" resultType="pojo.Book">
+		select
+		<include refid="Base_Column_List" />
+		from book
+	</select>
+
+	<!-- 查询图书记录总数 -->
+	<select id="selectCount" resultType="int">
+		select count(*) from book
+	</select>
+
+	<select id="getBookById" parameterType="String" resultType="Book">
+		select * from book where bid = #{bid}
+	</select>
+
+	<!-- 根据bid查询是否存在该id -->
+	<select id="isExistId" resultType="Book">
+		select *
+		from book where bid
+		=
+		#{bid}
+	</select>
+
+	<!-- 查询所有图书 -->
+	<select id="findAllBook" resultType="Book">
+		select *
+		from book
+		<!-- 执行分页查询 -->
+		<if test="start !=null and rows != null">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+	<!-- 查询图书总数 -->
+	<select id="bookCount" resultType="Integer">
+		select count(*) from
+		book
+	</select>
+
+	<!-- 查询相同id号的图书总数 -->
+	<select id="bookCountSameId" parameterType="String" resultType="Integer">
+		select count(*) from book where bid = #{bid}
+	</select>
+
+	<!-- 添加图书 -->
+	<insert id="addBook" parameterType="pojo.Book">
+		insert into book (bid,
+		bname,
+		author, publishment, isbn, buytime, price, status)
+		values
+		(#{bid},
+		#{bname}, #{author}, #{publishment}, #{isbn},
+		#{buytime}, #{price},
+		#{status})
+	</insert>
+
+	<!-- 根据bid更新图书，只能修改密码 -->
+	<update id="updateBook" parameterType="String">
+		update
+		book
+		set
+		bname=#{bname}, author=#{author}, publishment=#{publishment},
+		isbn=#{isbn}, buytime=#{buytime}, price=#{price}, status=#{status}
+		where bid = #{bid}
+	</update>
+
+	<!-- 根据bid删除图书 -->
+	<delete id="deleteBook" parameterType="String">
+		delete from book
+		where
+		bid =
+		#{bid}
+	</delete>
+
+	<!-- 根据编号bid找图书 -->
+	<select id="selectBookById" parameterType="String" resultType="Book">
+		select * from book where bid = #{bid}
+	</select>
+
+	<!--根据书名或作者或出版社或isbn查找一本图书,分页 -->
+	<select id="findBooksByWord" resultType="pojo.Book">
+		select
+		<include refid="Base_Column_List" />
+		from book
+		where bname like concat('%', #{word}, '%') or author like
+		concat('%',#{word},'%') or isbn like
+		concat('%',#{word},'%') or
+		publishment like
+		concat('%',#{word},'%') limit #{start},#{size}
+	</select>
+
+	<!--根据书名或作者或出版社或isbn查找一本图书,分页,数量 -->
+	<select id="findBooksByWordCount" parameterType="String"
+		resultType="Integer">
+		select
+		count(*)
+		from book
+		where bname like concat('%',
+		#{word}, '%') or author like
+		concat('%',#{word},'%') or isbn like
+		concat('%',#{word},'%') or
+		publishment like
+		concat('%',#{word},'%')
+	</select>
+</mapper>
+    

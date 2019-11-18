@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+    http://www.springframework.org/schema/util   
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- 加载属性文件 ><context:property-placeholder location="classpath:resource.properties" 
+		/ -->
+
+	<!-- 第一步：配置controller的扫描器 -->
+	<context:component-scan base-package="controller" />
+	<!-- 第二步：注解驱动：配置处理器映射器和适配器，会默认加载许多参数绑定方法 -->
+	<mvc:annotation-driven>
+		<!-- 解决@ResponseBody注解把返回值直接写到HTTP response body里，spring注解的默认编码是iso-8859-1的问题 -->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8"></property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 第三步：配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+
+	<!-- 第四步：配置视图解析器ViewResolver -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截所有控制器 -->
+			<mvc:mapping path="/**" />
+			<!-- mvc:exclude-mapping是另外一种拦截，它可以在你后来的测试中对某个页面进行不拦截，这样就不用在 LoginInterceptor的preHandler方法里面获取不拦截的请求uri地址了(优选) -->
+			<!-- <mvc:exclude-mapping path="/system/login" /> -->
+			<bean class="interceptor.LoginInterceptor" />
+
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 定义文件解释器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置默认编码 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 上传图片最大大小5M -->
+		<property name="maxUploadSize" value="5242440" />
+	</bean>
+
+</beans>

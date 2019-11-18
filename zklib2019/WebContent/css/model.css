@@ -1,0 +1,14 @@
+#head {
+	margin-bottom: 3px;
+}
+
+#left {
+	float: left;
+}
+
+#content {
+	margin-left: 142px;
+	margin-right: 4px;
+	border: 1px #e5e5e5 solid;
+	padding: 5px;
+}

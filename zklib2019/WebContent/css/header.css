@@ -1,0 +1,39 @@
+header {
+	background-color: #950040;
+}
+
+#icon {
+	display: inline-block;
+	margin-left: 10%;
+	width: 300px;
+}
+
+header #nav {
+	display: inline-block;
+	position: absolute;
+	right: 10%;
+	top: 6%;
+}
+
+#nav li {
+	display: inline-block;
+	background-color: #950040;
+	margin: 6px;
+	font-size: 20px;
+}
+
+#nav li a {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 10px;
+	border-radius: 25%;
+	color: white;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#nav li a:hover {
+	background-color: white;
+	color: #950040;
+}

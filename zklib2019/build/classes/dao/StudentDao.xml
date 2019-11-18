@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 映射文件namespace的值必须是接口的全类路径名 -->
+<mapper namespace="dao.StudentDao">
+	<!-- 查询用户 -->
+	<!-- id值是接口的方法名 -->
+	<select id="findStudent" parameterType="String" resultType="Student">
+		select *
+		from student
+		where sid = #{sid}
+		and spwd = #{spwd}
+	</select>
+
+	<select id="getStudentById" parameterType="String" resultType="Student">
+		select * from student where sid = #{sid}
+	</select>
+
+	<!-- 根据sid查询是否存在该id -->
+	<select id="isExistId" resultType="Student">
+		select *
+		from student where sid
+		= #{sid}
+	</select>
+
+	<!-- 查询所有学生 -->
+	<select id="findAllStudent" resultType="Student">
+		select *
+		from student
+		<!-- 执行分页查询 -->
+		<if test="start !=null and rows != null">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+	<!-- 查询学生总数 -->
+	<select id="studentCount" resultType="Integer">
+		select count(*) from
+		student
+	</select>
+
+	<!-- 查询相同id号的学生总数 -->
+	<select id="studentCountSameId" parameterType="String"
+		resultType="Integer">
+		select count(*) from student where sid = #{sid}
+	</select>
+
+	<!-- 添加学生 -->
+	<insert id="addStudent" parameterType="pojo.Student">
+		insert into student (sid,
+		spwd, sname, age, gender, lesson, department, permitted)
+		values
+		(#{sid}, #{spwd}, #{sname}, #{age}, #{gender}, #{lesson},
+		#{department}, #{permitted})
+	</insert>
+
+	<!-- 根据sid更新学生，只能修改密码 -->
+	<update id="updateStudent" parameterType="String">
+		update
+		student
+		set
+		spwd=#{spwd}, sname=#{sname}, age=#{age}, gender=#{gender},
+		lesson=#{lesson}, department=#{department}, permitted=#{permitted}
+		where sid = #{sid}
+	</update>
+
+	<!-- 根据sid删除学生 -->
+	<delete id="deleteStudent" parameterType="String">
+		delete from student
+		where
+		sid = #{sid}
+	</delete>
+</mapper>
+
+<!-- 映射文件和接口类必须放在同一包 -->
+<!-- 映射文件和接口类必须同名 -->

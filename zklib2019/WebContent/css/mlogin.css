@@ -1,0 +1,72 @@
+body {
+	background-color: #203443;
+	width: 100%;
+	height: 100%;
+}
+
+#father {
+	height: 250px;
+	width: 100%;
+	margin: 130px auto;
+}
+
+#pic {
+	height: 180px;
+	line-height: 180px;
+	margin-left: 100px;
+	margin-top: 30px;
+}
+
+form {
+	border: 2px #25c0a1 solid;
+	border-radius: 18px;
+	width: 340px;
+	height: 230px;
+	text-align: center;
+	float: right;
+	margin-right: 12%;
+	margin-top: 10px;
+	color: #FFFFFF;
+}
+
+.box {
+	width: 180px;
+	height: 37px;
+	border: 1px #25c0a1 solid;
+	background-color: #203443;
+	border-radius: 20px;
+	color:#ffffff;
+}
+
+.mid {
+	background-image: url(../images/mid.png);
+	background-repeat: no-repeat;
+	background-position: 16px center;
+	padding-left: 60px;
+	margin-bottom: 17px;
+	margin-top: 3px;
+}
+
+.mpwd {
+	background-image: url(../images/mpwd.png);
+	background-repeat: no-repeat;
+	background-position: 16px center;
+	padding-left: 60px;
+}
+
+.box:focus {
+	outline: none;
+	/*控制聚焦时不出现蓝色边框*/
+	border: 1px #ffffff solid;
+}
+
+.btn {
+	margin: 18px 22px;
+	width: 80px;
+	height: 30px;
+	background-color: #25c0a1;
+	border: 5px #25c0a1 solid;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-weight: bold;
+}

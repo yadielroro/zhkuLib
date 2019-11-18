@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dao.ManagerDao">
+    <select id="getManagerById" parameterType="String" resultType="Manager">
+		select * from manager where mid = #{mid}
+	</select>
+
+	<!-- 根据账号和密码查询管理员 -->
+	<select id="findManager" parameterType="String" resultType="Manager">
+		select *
+		from manager
+		where mid = #{mid}
+		and mpwd =#{mpwd}
+	</select>
+
+
+	<!-- 根据mid查询是否存在该id -->
+	<select id="isExistId" resultType="Manager">
+		select *
+		from manager where mid
+		= #{mid}
+	</select>
+
+	<!-- 查询所有管理员 -->
+	<select id="findAllManager" resultType="Manager">
+		select *
+		from manager
+		<!-- 执行分页查询 -->
+		<if test="start !=null and rows != null">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+	<!-- 查询管理员总数 -->
+	<select id="managerCount" resultType="Integer">
+		select count(*) from manager
+	</select>
+	
+	<!-- 查询相同id号的管理员总数 -->
+	<select id="managerCountFromId" parameterType="String" resultType="Integer">
+		select count(*) from manager where mid = #{mid}
+	</select>
+
+	<!-- 添加管理员 -->
+	<insert id="addManager" parameterType="pojo.Manager">
+		insert into manager (mid,
+		mpwd, level)
+		values
+		(#{mid}, #{mpwd}, #{level})
+	</insert>
+
+	<!-- 根据mid更新管理员，只能修改密码 -->
+	<update id="updateManager" parameterType="String">
+		update
+		manager
+		set mpwd
+		=
+		#{mpwd}
+		where mid = #{mid}
+	</update>
+
+	<!-- 根据mid删除管理员 -->
+	<delete id="deleteManager" parameterType="String">
+		delete from manager
+		where
+		mid = #{mid}
+	</delete>
+
+</mapper>

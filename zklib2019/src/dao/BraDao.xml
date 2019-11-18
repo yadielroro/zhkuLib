@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.BraDao">
+	<select id="isAmerceById" parameterType="String" resultType="String">
+		select ispay
+		from amerce
+		where sid = #{sid}
+	</select>
+
+	<!-- 添加借阅记录 -->
+	<insert id="addBorrow" parameterType="String">
+		insert into borrow
+		(borrow_id, sid, bid, start, end, again, deal)
+		values
+		(#{borrow_id},
+		#{sid}, #{bid}, #{start}, #{end}, #{again}, #{deal})
+	</insert>
+
+	<!-- 修改图书状态 -->
+	<update id="updateBookStatus" parameterType="String">
+		update
+		book
+		set status
+		=
+		#{status}
+		where bid = #{bid}
+	</update>
+
+	<!-- 修改图书状态 -->
+	<update id="updateBorrowDeal" parameterType="String">
+		update
+		borrow
+		set deal
+		=
+		#{deal}
+		where bid = #{bid}
+	</update>
+
+	<!-- 获取borrow表的deal -->
+	<select id="getBorrowDeal" parameterType="String" resultType="String">
+		select deal
+		from borrow
+		where bid = #{bid}
+	</select>
+
+	<!-- 添加罚款记录 -->
+	<insert id="addAmerce" parameterType="String">
+		insert into amerce
+		(amerce_id, borrow_id, sid, item, money, paytime)
+		values
+		(#{amerce_id},
+		#{borrow_id}, #{sid}, #{item}, #{money}, #{paytime})
+	</insert>
+
+</mapper>

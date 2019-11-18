@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<!-- 第一步：加载Spring所有配置文件-->	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 第二步：配置SpringMVC前端核心控制器 -->
+	<servlet>
+		<servlet-name>zklib</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-config.xml</param-value>
+		</init-param>
+		<!-- 配置服务器启动后立即加载Spring MVC配置文件 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- 将所有以“*.action”结尾的URL拦截，交由DispatcherServlet处理 -->
+	<servlet-mapping>
+		<servlet-name>zklib</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+	<!-- url-pattern最好别用“/”，它表示所有页面都交由DispatcherServlet处理，静态文件建议不交它处理 -->
+	
+	<!-- 系统默认页面 -->
+	<welcome-file-list>
+		<welcome-file>index_student.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

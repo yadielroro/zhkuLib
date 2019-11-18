@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.NoticeDao">
+	<select id="getNoticeById" parameterType="String" resultType="Notice">
+		select * from notice where nid = #{nid}
+	</select>
+
+	<!-- 根据nid查询是否存在该id -->
+	<select id="isExistId" resultType="Notice">
+		select *
+		from notice where
+		nid
+		=
+		#{nid}
+	</select>
+
+	<!-- 查询所有布告 -->
+	<select id="findAllNotice" resultType="Notice">
+		select *
+		from notice
+		<!-- 执行分页查询 -->
+		<if test="start !=null and rows != null">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+	<!-- 查询布告总数 -->
+	<select id="noticeCount" resultType="Integer">
+		select count(*) from
+		notice
+	</select>
+
+	<!-- 查询相同id号的布告总数 -->
+	<select id="noticeCountSameId" parameterType="String"
+		resultType="Integer">
+		select count(*) from notice where nid = #{nid}
+	</select>
+
+	<!-- 添加布告 -->
+	<insert id="addNotice" parameterType="pojo.Notice">
+		insert into notice (nid,
+		mid, nsum, ndate, ncontent, npic)
+		values
+		(#{nid}, #{mid}, #{nsum},
+		#{ndate}, #{ncontent}, #{npic})
+	</insert>
+
+	<!-- 根据nid更新布告，只能修改密码 -->
+	<update id="updateNotice" parameterType="String">
+		update
+		notice
+		set
+		nsum=#{nsum}, ndate=#{ndate}, ncontent=#{ncontent}, npic=#{npic}
+		where
+		nid = #{nid}
+	</update>
+
+	<!-- 根据nid删除布告 -->
+	<delete id="deleteNotice" parameterType="String">
+		delete from notice
+		where
+		nid = #{nid}
+	</delete>
+</mapper>
